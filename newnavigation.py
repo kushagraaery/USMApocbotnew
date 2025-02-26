@@ -442,11 +442,9 @@ elif page == "Research based First Draft":
             if "successfully" in status:
                 st.success("Successfully sent data to Google Sheets!")
                 # Show spinner for 10 seconds
-                with st.spinner("Redirecting you to Google Site in few seconds..."):
+                with st.spinner("Wait for a few seconds for the data to update..."):
                     time.sleep(10)
-
-                # Redirect to new page
-                webbrowser.open_new_tab("https://sites.google.com/gene.com/usma-poc/home")
+                st.page_link("https://sites.google.com/gene.com/usma-poc/home", label="Navigate to Reviewer Page", icon="📝")
             else:
                 st.error("Error while sending data to Google Sheets!")
     
