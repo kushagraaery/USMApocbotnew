@@ -72,7 +72,7 @@ st.markdown("""
 # Sidebar Navigation
 st.sidebar.image("https://naf.org/wp-content/uploads/2024/04/incedo-logo-01.png", width=100)  # Adjust width as needed
 st.sidebar.title("Main Menu")
-page = st.sidebar.radio("", ["Home Page", "Research based First Draft", "Incedo Insights Analyzer", "Pharma Insights Chatbot"])
+page = st.sidebar.radio("", ["Home Page", "Research based First Draft", "Querying Engine", "Pharma Insights Chatbot"])
 
 if page == "Home Page":
     st.markdown('<div class="main-header">💊 Introduction </div>', unsafe_allow_html=True)
@@ -448,7 +448,7 @@ elif page == "Research based First Draft":
             else:
                 st.error("Error while sending data to Google Sheets!")
     
-elif page == "Incedo Insights Analyzer":    
+elif page == "Querying Engine":    
         com.iframe("https://lottie.host/embed/cab54264-ba4f-4663-8415-9992125e6d0a/dQgwO9lDGf.lottie")
         
         # Chatbot 2.0 Section with Enhanced Styling and Animations
