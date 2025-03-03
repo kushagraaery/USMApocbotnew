@@ -444,9 +444,9 @@ elif page == "Research based First Draft":
                 # Show spinner for 10 seconds
                 with st.spinner("Wait for a few seconds for the data to update..."):
                     time.sleep(10)
-                st.page_link("https://sites.google.com/gene.com/usma-poc/home", label="Navigate to Reviewer Page", icon="📝")
             else:
                 st.error("Error while sending data to Google Sheets!")
+    st.page_link("https://sites.google.com/gene.com/usma-poc/home", label="Navigate to Reviewer Page", icon="📝")
     
 elif page == "Querying Engine":    
         com.iframe("https://lottie.host/embed/cab54264-ba4f-4663-8415-9992125e6d0a/dQgwO9lDGf.lottie")
