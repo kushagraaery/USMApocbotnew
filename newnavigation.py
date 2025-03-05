@@ -156,7 +156,7 @@ elif page == "Research based First Draft":
     ]
     
     GITHUB_TOKEN = os.getenv("GITHUB_TOKEN")  # Add your GitHub token in the .env file
-    GITHUB_REPO = "kushagraaery/USMApocbot"  # Replace with your GitHub repo
+    GITHUB_REPO = "kushagraaery/USMApocbotnew"  # Replace with your GitHub repo
     FILE_PATH = "Pharma_Society_Report.xlsx"  # Path to the Excel file in the repo
     
     # GitHub API URL
@@ -537,7 +537,7 @@ elif page == "Querying Engine":
         chat_input_2 = st.chat_input("Ask a question about the consolidated report...")
         
         GITHUB_TOKEN = os.getenv("GITHUB_TOKEN")  # Add your GitHub token in the .env file
-        GITHUB_REPO = "kushagraaery/qnagenerator"  # Replace with your GitHub repo
+        GITHUB_REPO = "kushagraaery/USMApocbotnew"  # Replace with your GitHub repo
         FILE_PATH = "Pharma_Society_Report.xlsx"  # Path to the Excel file in the repo
         
         # GitHub API URL
@@ -755,7 +755,7 @@ questions = [
 ]
 
 GITHUB_TOKEN = os.getenv("GITHUB_TOKEN")  # Add your GitHub token in the .env file
-GITHUB_REPO = "kushagraaery/USMApocbot"  # Replace with your GitHub repo
+GITHUB_REPO = "kushagraaery/USMApocbotnew"  # Replace with your GitHub repo
 FILE_PATH = "Pharma_Society_Report.xlsx"  # Path to the Excel file in the repo
     
 # GitHub API URL
