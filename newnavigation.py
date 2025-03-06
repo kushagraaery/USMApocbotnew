@@ -118,28 +118,358 @@ elif page == "Research based First Draft":
     st.markdown('<div class="main-header">🤖 Research based First Draft </div>', unsafe_allow_html=True)
     st.write("🔬 This Q&A generator allows users to fetch answers to predefined queries about pharmaceutical societies by entering the society name in the text box. It uses OpenAI to generate answers specific to the entered society and displays them in a tabular format. Users can download this report as an Excel file or as a CSV file. It updates the data automatically every Monday at 10 AM IST.")
     
-    # Define all available society options
+# Define all available society options
     all_societies = [
-        "FLASCO (Florida Society of Clinical Oncology)", 
-        "GASCO (Georgia Society of Clinical Oncology)",
-        "PSOH (Pennsylvania Society of Oncology and Hematology)",
-        "WVOS (West Virginia Oncology Society)",
-        "DSCO (Delaware Society of Clinical Oncology)",
-        "OSNJ (Oncology Society of New Jersey)",
-        "ESHOS (Empire State Hematology Oncology Society)"
-    ]
+    "Soleo Health",
+    "Asociacion Puertorriquena De Hemofilia Inc",
+    "Dava Oncology, LP",
+    "University of Miami",
+    "Florida Society of Clinical Oncology Inc",
+    "Blue Cross Blue Shield Association",
+    "Florida Society of Pathologists",
+    "Florida Gastroenterologic Society",
+    "Horizon CME",
+    "Florida Society of Ophthamology",
+    "HealioLive",
+    "Mayo Clinic Jacksonville",
+    "Fundacion De Esclerosis Multiple de Puerto Rico",
+    "American Academy of Pediatrics Georgia Chapter",
+    "Large Urology Group Practice Association",
+    "Cancer Specialists of NE/FL",
+    "THE MEDICAL EDUCATOR CONSORTIUM INC.",
+    "Florida Society of Health-System Pharmacists Inc",
+    "American Geriatrics Society Inc",
+    "National Multiple Sclerosis Society",
+    "Florida Society Dermatology Physician Assistant",
+    "Hemophilia Foundation of Greater Florida Inc.",
+    "Foundation Hope & Life USA",
+    "Florida Nurse Practitioner Network Inc",
+    "American Lung Association",
+    "Gerontological Advanced Practice Nurses Association",
+    "Georgia Society of Dermatology and Dermatologic Surgery Inc",
+    "Intellisphere, LLC | Oncology Specialty Group",
+    "Florida Allergy Asthma & Immunology Society Inc",
+    "Florida Society of Rheumatology Inc",
+    "American Retina Forum, Inc.",
+    "Sociedad Puertorriqeña de Oftalmologia",
+    "American Society for Mohs Surgery",
+    "American Association of Nurses Practitioners Inc",
+    "Southern Baptist Hospital of Florida Inc",
+    "American College of Rheumatology",
+    "Southeast Society of Health-System Pharmacists",
+    "Bascom Palmer Eye Institute",
+    "South Broward Hospital District/ Memorial Healthcare System",
+    "American Association for Cancer Research",
+    "H Lee Moffitt Cancer Center and Research Institute Foundation Inc",
+    "Boca Raton Regional Hospital Foundation Inc",
+    "Asociación Puertorriqueña de Médicos Alergistas",
+    "Sociedad Dermatologica de Puerto Rico",
+    "Society of Gynecologic Oncology",
+    "Florida Society of Neurology",
+    "Eastern Allergy Conference Inc",
+    "Coalicion De Asma De Puerto Rico",
+    "Allergy Education Partners",
+    "FLORIDA BLEEDING DISORDERS ASSOCIATION, INC",
+    "Oncology Nursing Society - Miami Dade Chapter",
+    "American Association of Critical Care Nurses",
+    "Palm Beach Society of Health System Pharmacists",
+    "HMP Education, LLC",
+    "Lulac Institute, Inc.",
+    "Academia Puertorriqueña de Neurología",
+    "National Community Oncology Dispensing Association",
+    "The Womens Breast & Heart Initiative Florida Affiliate Inc",
+    "MS Views and News, Inc",
+    "Hemostasis and Thrombosis Research Society Inc",
+    "Harborside Press LLC",
+    "Mount Sinai Medical Center of Florida Inc",
+    "International Physician Networks, LLC",
+    "Florida Society of Oncology Social Workers",
+    "University of Florida Jacksonville Physicians Inc",
+    "Total Health Conferencing",
+    "DeMarse Meetings and Events Agency",
+    "Adventist Health System-Sunbelt Inc",
+    "Association of Neurovascular Clinicians",
+    "Susan G. Komen Breast Cancer Foundation, Inc., National Office",
+    "International Society of Liquid Biopsy",
+    "American Cancer Society, Inc.",
+    "University of Florida",
+    "Usf Health Professions Conferencing Corporation",
+    "The Donna Foundation, Inc",
+    "Southern Thoracic Surgical Association Inc",
+    "Eastern Cardiothoracic Surgical Society",
+    "World Events Forum, Inc.",
+    "Tallahassee Memorial Healthcare Foundation Inc",
+    "Central Florida Association of Physicians From The Indian Subcontinent (CAPI)",
+    "H Lee Moffitt Cancer Center and Research Institute Hospital Inc",
+    "Cure SMA",
+    "Veritas Productions Partners, LLC",
+    "Macula Society Inc",
+    "NeuroNet Pro, LLC",
+    "The Cleveland Clinic Educational Foundation",
+    "Baptist Health South Florida Foundation Inc",
+    "Memorial Foundation, Inc.",
+    "Dolphins Cycling Challenge Inc",
+    "General Thoracic Surgical Club",
+    "Community Oncology Alliance Inc",
+    "A Breath of Hope Lung Foundation",
+    "GO2 Foundation for Lung Cancer",
+    "Georgia Society of Ophthalmology",
+    "Slack Events LLC",
+    "Johns Hopkins All Children’s Foundation",
+    "Academy of Oncology Nurse Navigators Inc",
+    "Palm Beach Cancer Institute Foundation Inc",
+    "Florida Cancer Specialists Foundation Inc.",
+    "Association of Operating Room Nurses of Tampa Bay Inc",
+    "Florida Association for the Study of Headache and Other Neurological Disorder",
+    "Powers Meeting Management",
+    "Hemophilia Federation of America",
+    "Baptist Health System Inc",
+    "The Leukemia & Lymphoma Society, Inc.",
+    "American Tamil Medical Association",
+    "Tampa Alumni Chapter of Kappa Alpha Psi Fraternity inc",
+    "Foundation Fighting Blindness, Inc.",
+    "UNIVERSITY OF MIAMI, UMiami Medicine - Ophthalmology (MIAMI), Bascom Palmer Eye Institute",
+    "Jupiter Medical Center Inc",
+    "Women in Ophthalmology Inc",
+    "Black Health Matters Foundation Inc",
+    "University of South Florida",
+    "Gilda's Club of South Florida, Inc.",
+    "Oncology Nursing Society",
+    "JADPRO via BroadcastMed LLC",
+    "Paralyzed Veterans of America",
+    "Black Nurse Practitioners of Palm Beach County",
+    "Bendcare LLC",
+    "Pulmonary Fibrosis Foundation",
+    "Association of VA Hematology Oncology Inc",
+    "Dietz Farrell Inc",
+    "Mayo Clinic Arizona",
+    "Westside Regional Medical Staff Inc",
+    "Vital Care",
+    "Sharsheret, Inc.",
+    "Society of Vascular and Interventional Neurology",
+    "Neuromuscular Study Group",
+    "American Association of Pharmaceutical Scientists",
+    "Muscular Dystrophy Association",
+    "EXCEL CONTINUING EDUCATION",
+    "Baptist Health Foundation",
+    "Johns Hopkins All Childrens Hospital Inc",
+    "Americas Committee For Treatment & Research In Multiple Sclerosis Inc",
+    "Florida Health Sciences Center Inc",
+    "Rilite Foundation",
+    "American Academy of Pediatrics - National",
+    "Americas Hepato-Pancreato-Biliary Association Inc",
+    "Foundation for Research and Education in Dermatology",
+    "Chinese American Hematologist and Oncologist Network Inc",
+    "Baptist Health of South Florida Inc",
+    "National Association of Managed Care Physicians Inc",
+    "Hematology Oncology Pharmacy Association Inc",
+    "American Council of the Blind",
+    "Ultimate Opinions in Medicine, LLC; dba PresiCa",
+    "University of Florida Foundation, Inc.",
+    "Can Do Multiple Sclerosis",
+    "Florida Society of Dermatologic Surgeons",
+    "American Oncology Network, LLC",
+    "American Legion Post 390 Wellington Inc.",
+    "HealthTrust Purchasing Group, LP",
+    "Omega Psi Phi Fraternity, Inc",
+    "Georgia Society of Rheumotology",
+    "National Association of Health Services Executives Inc",
+    "LATINOUS NFP",
+    "Multiple Sclerosis Foundation, Inc.",
+    "Univision of New Jersey Inc dba WXTV, WUVP, WFUT, WFPA",
+    "Imedex",
+    "Fellows Forum Inc",
+    "The Sumaira Foundation",
+    "Cardinal Health 119, LLC",
+    "Asociacion de Hematologia Y Oncologia Medica de PR",
+    "McKesson Specialty Health Pharmaceutical & Biotech Solutions LLC",
+    "Memorial Health Systems Inc",
+    "Tampa Food Allergy Support and Education",
+    "Central Florida Health Care Coalition, Incorporated (Florida Alliance for Healthcare Value)",
+    "Hope Charities",
+    "Kentucky Medical Association",
+    "National Organization of Rheumatology Managers",
+    "India Association Cultural and Education Center of N Central FL I",
+    "Acuity GPO LLC",
+    "ACHE of South Florida"
+]
     
-    # Define all available society options
+# Define all available society options
     new_societies = [
-        "",
-        "FLASCO (Florida Society of Clinical Oncology)", 
-        "GASCO (Georgia Society of Clinical Oncology)",
-        "PSOH (Pennsylvania Society of Oncology and Hematology)",
-        "WVOS (West Virginia Oncology Society)",
-        "DSCO (Delaware Society of Clinical Oncology)",
-        "OSNJ (Oncology Society of New Jersey)",
-        "ESHOS (Empire State Hematology Oncology Society)"
-    ]
+    "",
+    "Soleo Health",
+    "Asociacion Puertorriquena De Hemofilia Inc",
+    "Dava Oncology, LP",
+    "University of Miami",
+    "Florida Society of Clinical Oncology Inc",
+    "Blue Cross Blue Shield Association",
+    "Florida Society of Pathologists",
+    "Florida Gastroenterologic Society",
+    "Horizon CME",
+    "Florida Society of Ophthamology",
+    "HealioLive",
+    "Mayo Clinic Jacksonville",
+    "Fundacion De Esclerosis Multiple de Puerto Rico",
+    "American Academy of Pediatrics Georgia Chapter",
+    "Large Urology Group Practice Association",
+    "Cancer Specialists of NE/FL",
+    "THE MEDICAL EDUCATOR CONSORTIUM INC.",
+    "Florida Society of Health-System Pharmacists Inc",
+    "American Geriatrics Society Inc",
+    "National Multiple Sclerosis Society",
+    "Florida Society Dermatology Physician Assistant",
+    "Hemophilia Foundation of Greater Florida Inc.",
+    "Foundation Hope & Life USA",
+    "Florida Nurse Practitioner Network Inc",
+    "American Lung Association",
+    "Gerontological Advanced Practice Nurses Association",
+    "Georgia Society of Dermatology and Dermatologic Surgery Inc",
+    "Intellisphere, LLC | Oncology Specialty Group",
+    "Florida Allergy Asthma & Immunology Society Inc",
+    "Florida Society of Rheumatology Inc",
+    "American Retina Forum, Inc.",
+    "Sociedad Puertorriqeña de Oftalmologia",
+    "American Society for Mohs Surgery",
+    "American Association of Nurses Practitioners Inc",
+    "Southern Baptist Hospital of Florida Inc",
+    "American College of Rheumatology",
+    "Southeast Society of Health-System Pharmacists",
+    "Bascom Palmer Eye Institute",
+    "South Broward Hospital District/ Memorial Healthcare System",
+    "American Association for Cancer Research",
+    "H Lee Moffitt Cancer Center and Research Institute Foundation Inc",
+    "Boca Raton Regional Hospital Foundation Inc",
+    "Asociación Puertorriqueña de Médicos Alergistas",
+    "Sociedad Dermatologica de Puerto Rico",
+    "Society of Gynecologic Oncology",
+    "Florida Society of Neurology",
+    "Eastern Allergy Conference Inc",
+    "Coalicion De Asma De Puerto Rico",
+    "Allergy Education Partners",
+    "FLORIDA BLEEDING DISORDERS ASSOCIATION, INC",
+    "Oncology Nursing Society - Miami Dade Chapter",
+    "American Association of Critical Care Nurses",
+    "Palm Beach Society of Health System Pharmacists",
+    "HMP Education, LLC",
+    "Lulac Institute, Inc.",
+    "Academia Puertorriqueña de Neurología",
+    "National Community Oncology Dispensing Association",
+    "The Womens Breast & Heart Initiative Florida Affiliate Inc",
+    "MS Views and News, Inc",
+    "Hemostasis and Thrombosis Research Society Inc",
+    "Harborside Press LLC",
+    "Mount Sinai Medical Center of Florida Inc",
+    "International Physician Networks, LLC",
+    "Florida Society of Oncology Social Workers",
+    "University of Florida Jacksonville Physicians Inc",
+    "Total Health Conferencing",
+    "DeMarse Meetings and Events Agency",
+    "Adventist Health System-Sunbelt Inc",
+    "Association of Neurovascular Clinicians",
+    "Susan G. Komen Breast Cancer Foundation, Inc., National Office",
+    "International Society of Liquid Biopsy",
+    "American Cancer Society, Inc.",
+    "University of Florida",
+    "Usf Health Professions Conferencing Corporation",
+    "The Donna Foundation, Inc",
+    "Southern Thoracic Surgical Association Inc",
+    "Eastern Cardiothoracic Surgical Society",
+    "World Events Forum, Inc.",
+    "Tallahassee Memorial Healthcare Foundation Inc",
+    "Central Florida Association of Physicians From The Indian Subcontinent (CAPI)",
+    "H Lee Moffitt Cancer Center and Research Institute Hospital Inc",
+    "Cure SMA",
+    "Veritas Productions Partners, LLC",
+    "Macula Society Inc",
+    "NeuroNet Pro, LLC",
+    "The Cleveland Clinic Educational Foundation",
+    "Baptist Health South Florida Foundation Inc",
+    "Memorial Foundation, Inc.",
+    "Dolphins Cycling Challenge Inc",
+    "General Thoracic Surgical Club",
+    "Community Oncology Alliance Inc",
+    "A Breath of Hope Lung Foundation",
+    "GO2 Foundation for Lung Cancer",
+    "Georgia Society of Ophthalmology",
+    "Slack Events LLC",
+    "Johns Hopkins All Children’s Foundation",
+    "Academy of Oncology Nurse Navigators Inc",
+    "Palm Beach Cancer Institute Foundation Inc",
+    "Florida Cancer Specialists Foundation Inc.",
+    "Association of Operating Room Nurses of Tampa Bay Inc",
+    "Florida Association for the Study of Headache and Other Neurological Disorder",
+    "Powers Meeting Management",
+    "Hemophilia Federation of America",
+    "Baptist Health System Inc",
+    "The Leukemia & Lymphoma Society, Inc.",
+    "American Tamil Medical Association",
+    "Tampa Alumni Chapter of Kappa Alpha Psi Fraternity inc",
+    "Foundation Fighting Blindness, Inc.",
+    "UNIVERSITY OF MIAMI, UMiami Medicine - Ophthalmology (MIAMI), Bascom Palmer Eye Institute",
+    "Jupiter Medical Center Inc",
+    "Women in Ophthalmology Inc",
+    "Black Health Matters Foundation Inc",
+    "University of South Florida",
+    "Gilda's Club of South Florida, Inc.",
+    "Oncology Nursing Society",
+    "JADPRO via BroadcastMed LLC",
+    "Paralyzed Veterans of America",
+    "Black Nurse Practitioners of Palm Beach County",
+    "Bendcare LLC",
+    "Pulmonary Fibrosis Foundation",
+    "Association of VA Hematology Oncology Inc",
+    "Dietz Farrell Inc",
+    "Mayo Clinic Arizona",
+    "Westside Regional Medical Staff Inc",
+    "Vital Care",
+    "Sharsheret, Inc.",
+    "Society of Vascular and Interventional Neurology",
+    "Neuromuscular Study Group",
+    "American Association of Pharmaceutical Scientists",
+    "Muscular Dystrophy Association",
+    "EXCEL CONTINUING EDUCATION",
+    "Baptist Health Foundation",
+    "Johns Hopkins All Childrens Hospital Inc",
+    "Americas Committee For Treatment & Research In Multiple Sclerosis Inc",
+    "Florida Health Sciences Center Inc",
+    "Rilite Foundation",
+    "American Academy of Pediatrics - National",
+    "Americas Hepato-Pancreato-Biliary Association Inc",
+    "Foundation for Research and Education in Dermatology",
+    "Chinese American Hematologist and Oncologist Network Inc",
+    "Baptist Health of South Florida Inc",
+    "National Association of Managed Care Physicians Inc",
+    "Hematology Oncology Pharmacy Association Inc",
+    "American Council of the Blind",
+    "Ultimate Opinions in Medicine, LLC; dba PresiCa",
+    "University of Florida Foundation, Inc.",
+    "Can Do Multiple Sclerosis",
+    "Florida Society of Dermatologic Surgeons",
+    "American Oncology Network, LLC",
+    "American Legion Post 390 Wellington Inc.",
+    "HealthTrust Purchasing Group, LP",
+    "Omega Psi Phi Fraternity, Inc",
+    "Georgia Society of Rheumotology",
+    "National Association of Health Services Executives Inc",
+    "LATINOUS NFP",
+    "Multiple Sclerosis Foundation, Inc.",
+    "Univision of New Jersey Inc dba WXTV, WUVP, WFUT, WFPA",
+    "Imedex",
+    "Fellows Forum Inc",
+    "The Sumaira Foundation",
+    "Cardinal Health 119, LLC",
+    "Asociacion de Hematologia Y Oncologia Medica de PR",
+    "McKesson Specialty Health Pharmaceutical & Biotech Solutions LLC",
+    "Memorial Health Systems Inc",
+    "Tampa Food Allergy Support and Education",
+    "Central Florida Health Care Coalition, Incorporated (Florida Alliance for Healthcare Value)",
+    "Hope Charities",
+    "Kentucky Medical Association",
+    "National Organization of Rheumatology Managers",
+    "India Association Cultural and Education Center of N Central FL I",
+    "Acuity GPO LLC",
+    "ACHE of South Florida"
+]
     
     # Define questions
     questions = [
@@ -717,170 +1047,170 @@ elif page == "Pharma Insights Chatbot":
         elif msg["role"] == "assistant":
             st.chat_message("assistant").write(msg["content"])
 
-# Define all available society options
-all_societies = [
-    "FLASCO (Florida Society of Clinical Oncology)", 
-    "GASCO (Georgia Society of Clinical Oncology)",
-    "PSOH (Pennsylvania Society of Oncology and Hematology)",
-    "WVOS (West Virginia Oncology Society)",
-    "DSCO (Delaware Society of Clinical Oncology)",
-    "OSNJ (Oncology Society of New Jersey)",
-    "ESHOS (Empire State Hematology Oncology Society)"
-]
+# # Define all available society options
+# all_societies = [
+#     "FLASCO (Florida Society of Clinical Oncology)", 
+#     "GASCO (Georgia Society of Clinical Oncology)",
+#     "PSOH (Pennsylvania Society of Oncology and Hematology)",
+#     "WVOS (West Virginia Oncology Society)",
+#     "DSCO (Delaware Society of Clinical Oncology)",
+#     "OSNJ (Oncology Society of New Jersey)",
+#     "ESHOS (Empire State Hematology Oncology Society)"
+# ]
 
-# Define all available society options
-new_societies = [
-    "",
-    "FLASCO (Florida Society of Clinical Oncology)", 
-    "GASCO (Georgia Society of Clinical Oncology)",
-    "PSOH (Pennsylvania Society of Oncology and Hematology)",
-    "WVOS (West Virginia Oncology Society)",
-    "DSCO (Delaware Society of Clinical Oncology)",
-    "OSNJ (Oncology Society of New Jersey)",
-    "ESHOS (Empire State Hematology Oncology Society)"
-]
+# # Define all available society options
+# new_societies = [
+#     "",
+#     "FLASCO (Florida Society of Clinical Oncology)", 
+#     "GASCO (Georgia Society of Clinical Oncology)",
+#     "PSOH (Pennsylvania Society of Oncology and Hematology)",
+#     "WVOS (West Virginia Oncology Society)",
+#     "DSCO (Delaware Society of Clinical Oncology)",
+#     "OSNJ (Oncology Society of New Jersey)",
+#     "ESHOS (Empire State Hematology Oncology Society)"
+# ]
 
-# Define questions
-questions = [
-    "What is the membership count for society_name? Respond with one word (number) only. That should just be an integer nothing like approx or members just a number.",
-    "Does society_name encompasses community sites? Respond one word ('yes' or 'no') only plus provide a justification for the answer also after a comma.",
-    "Is society_name influential on state or local policy? Respond one word ('yes' or 'no') only plus provide a justification for the answer also after a comma.",
-    "Does society_name provide engagement opportunity with leadership? Respond one word ('yes' or 'no') only plus provide a justification for the answer also after a comma.",
-    "Does society_name provide support for clinical trial recruitment? Respond one word ('yes' or 'no') only plus provide a justification for the answer also after a comma.",
-    "Does society_name provide engagement opportunity with payors? Respond one word ('yes' or 'no') only plus provide a justification for the answer also after a comma.",
-    "Does society_name include area experts on its board? Respond one word ('yes' or 'no') only plus provide a justification for the answer also after a comma.",
-    "Is society_name involved in therapeutic research collaborations? Respond one word ('yes' or 'no') only plus provide a justification for the answer also after a comma.",
-    "Does society_name include top therapeutic area experts on its board? Respond with one word ('yes' or 'no') only plus provide a justification for the answer also after a comma.",
-    "Name the Region where the society_name is from? Just name the Region in word for the answer."
-]
+# # Define questions
+# questions = [
+#     "What is the membership count for society_name? Respond with one word (number) only. That should just be an integer nothing like approx or members just a number.",
+#     "Does society_name encompasses community sites? Respond one word ('yes' or 'no') only plus provide a justification for the answer also after a comma.",
+#     "Is society_name influential on state or local policy? Respond one word ('yes' or 'no') only plus provide a justification for the answer also after a comma.",
+#     "Does society_name provide engagement opportunity with leadership? Respond one word ('yes' or 'no') only plus provide a justification for the answer also after a comma.",
+#     "Does society_name provide support for clinical trial recruitment? Respond one word ('yes' or 'no') only plus provide a justification for the answer also after a comma.",
+#     "Does society_name provide engagement opportunity with payors? Respond one word ('yes' or 'no') only plus provide a justification for the answer also after a comma.",
+#     "Does society_name include area experts on its board? Respond one word ('yes' or 'no') only plus provide a justification for the answer also after a comma.",
+#     "Is society_name involved in therapeutic research collaborations? Respond one word ('yes' or 'no') only plus provide a justification for the answer also after a comma.",
+#     "Does society_name include top therapeutic area experts on its board? Respond with one word ('yes' or 'no') only plus provide a justification for the answer also after a comma.",
+#     "Name the Region where the society_name is from? Just name the Region in word for the answer."
+# ]
 
-GITHUB_TOKEN = os.getenv("GITHUB_TOKEN")  # Add your GitHub token in the .env file
-GITHUB_REPO = "kushagraaery/USMApocbotnew"  # Replace with your GitHub repo
-FILE_PATH = "Pharma_Society_Report.xlsx"  # Path to the Excel file in the repo
+# GITHUB_TOKEN = os.getenv("GITHUB_TOKEN")  # Add your GitHub token in the .env file
+# GITHUB_REPO = "kushagraaery/USMApocbotnew"  # Replace with your GitHub repo
+# FILE_PATH = "Pharma_Society_Report.xlsx"  # Path to the Excel file in the repo
     
-# GitHub API URL
-BASE_URL = f"https://api.github.com/repos/{GITHUB_REPO}/contents/{FILE_PATH}"
+# # GitHub API URL
+# BASE_URL = f"https://api.github.com/repos/{GITHUB_REPO}/contents/{FILE_PATH}"
     
-# Helper function to fetch Excel file from GitHub
-def fetch_excel_from_github():
-    headers = {"Authorization": f"Bearer {GITHUB_TOKEN}"}
-    response = requests.get(BASE_URL, headers=headers)
-    if response.status_code == 200:
-        content = response.json()
-        file_data = base64.b64decode(content["content"])
-        df = pd.read_excel(BytesIO(file_data))
-        sha = content["sha"]  # Required for updating the file
-        return df, sha
-    else:
-        st.error("Failed to fetch the Excel file from GitHub.")
-        return None, None
+# # Helper function to fetch Excel file from GitHub
+# def fetch_excel_from_github():
+#     headers = {"Authorization": f"Bearer {GITHUB_TOKEN}"}
+#     response = requests.get(BASE_URL, headers=headers)
+#     if response.status_code == 200:
+#         content = response.json()
+#         file_data = base64.b64decode(content["content"])
+#         df = pd.read_excel(BytesIO(file_data))
+#         sha = content["sha"]  # Required for updating the file
+#         return df, sha
+#     else:
+#         st.error("Failed to fetch the Excel file from GitHub.")
+#         return None, None
 
-# Helper function to update Excel file in GitHub
-def update_excel_in_github(df, sha):
-    headers = {"Authorization": f"Bearer {GITHUB_TOKEN}"}
-    # Convert DataFrame to binary Excel content
-    output = BytesIO()
-    with pd.ExcelWriter(output, engine="xlsxwriter") as writer:
-        df.to_excel(writer, index=False)
-    file_content = output.getvalue()
-    # Prepare API payload
-    payload = {
-        "message": "Updated Excel file via Streamlit",
-        "content": base64.b64encode(file_content).decode("utf-8"),
-        "sha": sha
-    }
-    response = requests.put(BASE_URL, headers=headers, data=json.dumps(payload))
-    if response.status_code == 200:
-        st.success("Data updated successfully!")
-    else:
-        st.error(f"Failed to update the data: {response.text}")
+# # Helper function to update Excel file in GitHub
+# def update_excel_in_github(df, sha):
+#     headers = {"Authorization": f"Bearer {GITHUB_TOKEN}"}
+#     # Convert DataFrame to binary Excel content
+#     output = BytesIO()
+#     with pd.ExcelWriter(output, engine="xlsxwriter") as writer:
+#         df.to_excel(writer, index=False)
+#     file_content = output.getvalue()
+#     # Prepare API payload
+#     payload = {
+#         "message": "Updated Excel file via Streamlit",
+#         "content": base64.b64encode(file_content).decode("utf-8"),
+#         "sha": sha
+#     }
+#     response = requests.put(BASE_URL, headers=headers, data=json.dumps(payload))
+#     if response.status_code == 200:
+#         st.success("Data updated successfully!")
+#     else:
+#         st.error(f"Failed to update the data: {response.text}")
 
-# Function to fetch data for all societies
-def fetch_all_societies_data():
-    report_data = pd.DataFrame(columns=[
-        "Society Name",
-        *questions
-    ])
+# # Function to fetch data for all societies
+# def fetch_all_societies_data():
+#     report_data = pd.DataFrame(columns=[
+#         "Society Name",
+#         *questions
+#     ])
 
-    for society in all_societies:
-        society_data = {"Society Name": society}
-        modified_questions = [q.replace("society_name", society) for q in questions]
+#     for society in all_societies:
+#         society_data = {"Society Name": society}
+#         modified_questions = [q.replace("society_name", society) for q in questions]
 
-        for i, question in enumerate(modified_questions):
-            try:
-                response = openai.ChatCompletion.create(
-                    model="gpt-3.5-turbo",
-                    messages=[{"role": "user", "content": question}]
-                )
-                answer = response["choices"][0]["message"]["content"].strip()
-                society_data[questions[i]] = answer
-            except Exception as e:
-                st.error(f"Error with '{question}': {e}")
-                society_data[questions[i]] = "Error"
-        report_data = pd.concat([report_data, pd.DataFrame([society_data])], ignore_index=True)
+#         for i, question in enumerate(modified_questions):
+#             try:
+#                 response = openai.ChatCompletion.create(
+#                     model="gpt-3.5-turbo",
+#                     messages=[{"role": "user", "content": question}]
+#                 )
+#                 answer = response["choices"][0]["message"]["content"].strip()
+#                 society_data[questions[i]] = answer
+#             except Exception as e:
+#                 st.error(f"Error with '{question}': {e}")
+#                 society_data[questions[i]] = "Error"
+#         report_data = pd.concat([report_data, pd.DataFrame([society_data])], ignore_index=True)
     
 
-    # Fetch the existing data and SHA from GitHub
-    df, sha = fetch_excel_from_github()
-    if df is not None and sha is not None:
-        # Replace the entire data with the new report_data
-        update_report_data(report_data, sha)
-    else:
-        st.error("Failed to fetch existing data from GitHub.")
+#     # Fetch the existing data and SHA from GitHub
+#     df, sha = fetch_excel_from_github()
+#     if df is not None and sha is not None:
+#         # Replace the entire data with the new report_data
+#         update_report_data(report_data, sha)
+#     else:
+#         st.error("Failed to fetch existing data from GitHub.")
 
-def update_report_data(report_data, sha):
-    if report_data is not None and sha is not None:
-        # Fetch the existing data from GitHub
-        df, _ = fetch_excel_from_github()
-        if df is not None:
-            # Iterate through the new report data
-            for _, row in report_data.iterrows():
-                society_name = row["Society Name"]
-                new_membership_count = row.get(
-                    "What is the membership count for society_name? Respond with one word (number) only. That should just be an integer nothing like approx or members just a number.",
-                    None
-                )
+# def update_report_data(report_data, sha):
+#     if report_data is not None and sha is not None:
+#         # Fetch the existing data from GitHub
+#         df, _ = fetch_excel_from_github()
+#         if df is not None:
+#             # Iterate through the new report data
+#             for _, row in report_data.iterrows():
+#                 society_name = row["Society Name"]
+#                 new_membership_count = row.get(
+#                     "What is the membership count for society_name? Respond with one word (number) only. That should just be an integer nothing like approx or members just a number.",
+#                     None
+#                 )
 
-                # Ensure the new membership count is a valid integer
-                try:
-                    new_membership_count = int(new_membership_count)
-                except (ValueError, TypeError):
-                    st.warning(f"Invalid membership count for {society_name}, skipping update.")
-                    continue  # Skip this entry if the membership count is invalid
+#                 # Ensure the new membership count is a valid integer
+#                 try:
+#                     new_membership_count = int(new_membership_count)
+#                 except (ValueError, TypeError):
+#                     st.warning(f"Invalid membership count for {society_name}, skipping update.")
+#                     continue  # Skip this entry if the membership count is invalid
 
-                # Check if the society exists in the existing data
-                if society_name in df["Society Name"].values:
-                    # Update the existing row directly
-                    index = df[df["Society Name"] == society_name].index[0]
-                    df.loc[index, 
-                        "What is the membership count for society_name? Respond with one word (number) only. That should just be an integer nothing like approx or members just a number."
-                    ] = new_membership_count
-                else:
-                    # Append the new row if the society doesn't exist
-                    new_row = row.to_dict()
-                    df = pd.concat([df, pd.DataFrame([new_row])], ignore_index=True)
+#                 # Check if the society exists in the existing data
+#                 if society_name in df["Society Name"].values:
+#                     # Update the existing row directly
+#                     index = df[df["Society Name"] == society_name].index[0]
+#                     df.loc[index, 
+#                         "What is the membership count for society_name? Respond with one word (number) only. That should just be an integer nothing like approx or members just a number."
+#                     ] = new_membership_count
+#                 else:
+#                     # Append the new row if the society doesn't exist
+#                     new_row = row.to_dict()
+#                     df = pd.concat([df, pd.DataFrame([new_row])], ignore_index=True)
 
-            # Upload the updated DataFrame back to GitHub
-            update_excel_in_github(df, sha)
-        else:
-            st.error("Failed to fetch the existing data from GitHub.")
-    else:
-        st.error("No report data or SHA provided for update.")
+#             # Upload the updated DataFrame back to GitHub
+#             update_excel_in_github(df, sha)
+#         else:
+#             st.error("Failed to fetch the existing data from GitHub.")
+#     else:
+#         st.error("No report data or SHA provided for update.")
 
-# This function will run the job without the lock
-def scheduled_job():
-    print("Weekly data fetch initiated...")
-    fetch_all_societies_data()  # Call your data fetch function
-    print("Weekly data fetch completed!")
+# # This function will run the job without the lock
+# def scheduled_job():
+#     print("Weekly data fetch initiated...")
+#     fetch_all_societies_data()  # Call your data fetch function
+#     print("Weekly data fetch completed!")
 
-# Function to start the scheduler
-def start_scheduler():
-    # Create the scheduler and add the job
-    scheduler = BackgroundScheduler()
-    scheduler.add_job(scheduled_job, 'cron', day_of_week='mon', hour=10, minute=00, timezone="Asia/Kolkata")
-    # Start the scheduler
-    scheduler.start()
+# # Function to start the scheduler
+# def start_scheduler():
+#     # Create the scheduler and add the job
+#     scheduler = BackgroundScheduler()
+#     scheduler.add_job(scheduled_job, 'cron', day_of_week='mon', hour=10, minute=00, timezone="Asia/Kolkata")
+#     # Start the scheduler
+#     scheduler.start()
 
-# Start the scheduler in a separate thread
-if __name__ == "__main__":
-    threading.Thread(target=start_scheduler, daemon=True).start()
+# # Start the scheduler in a separate thread
+# if __name__ == "__main__":
+#     threading.Thread(target=start_scheduler, daemon=True).start()
