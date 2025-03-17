@@ -118,28 +118,28 @@ elif page == "Research based First Draft":
     st.markdown('<div class="main-header">🤖 Research based First Draft </div>', unsafe_allow_html=True)
     st.write("🔬 This Q&A generator allows users to fetch answers to predefined queries about pharmaceutical societies by entering the society name in the text box. It uses OpenAI to generate answers specific to the entered society and displays them in a tabular format. Users can download this report as an Excel file or as a CSV file. It updates the data automatically every Monday at 10 AM IST.")
     
-# Define all available society options
-all_societies = [
-    "FLASCO (Florida Society of Clinical Oncology)", 
-    "GASCO (Georgia Society of Clinical Oncology)",
-    "PSOH (Pennsylvania Society of Oncology and Hematology)",
-    "WVOS (West Virginia Oncology Society)",
-    "DSCO (Delaware Society of Clinical Oncology)",
-    "OSNJ (Oncology Society of New Jersey)",
-    "ESHOS (Empire State Hematology Oncology Society)"
-]
+    # Define all available society options
+    all_societies = [
+        "FLASCO (Florida Society of Clinical Oncology)", 
+        "GASCO (Georgia Society of Clinical Oncology)",
+        "PSOH (Pennsylvania Society of Oncology and Hematology)",
+        "WVOS (West Virginia Oncology Society)",
+        "DSCO (Delaware Society of Clinical Oncology)",
+        "OSNJ (Oncology Society of New Jersey)",
+        "ESHOS (Empire State Hematology Oncology Society)"
+    ]
 
-# Define all available society options
-new_societies = [
-    "",
-    "FLASCO (Florida Society of Clinical Oncology)", 
-    "GASCO (Georgia Society of Clinical Oncology)",
-    "PSOH (Pennsylvania Society of Oncology and Hematology)",
-    "WVOS (West Virginia Oncology Society)",
-    "DSCO (Delaware Society of Clinical Oncology)",
-    "OSNJ (Oncology Society of New Jersey)",
-    "ESHOS (Empire State Hematology Oncology Society)"
-]
+    # Define all available society options
+    new_societies = [
+        "",
+        "FLASCO (Florida Society of Clinical Oncology)", 
+        "GASCO (Georgia Society of Clinical Oncology)",
+        "PSOH (Pennsylvania Society of Oncology and Hematology)",
+        "WVOS (West Virginia Oncology Society)",
+        "DSCO (Delaware Society of Clinical Oncology)",
+        "OSNJ (Oncology Society of New Jersey)",
+        "ESHOS (Empire State Hematology Oncology Society)"
+    ]
     
     # Define questions
     questions = [
