@@ -111,7 +111,6 @@ if page == "Home Page":
         "- **Tier 1 (Medium Priority):** Society meets 3-5 attributes but may not allow full implementation of the Society Framework. Future engagement can be explored.\n"
         "- **Tier 2 (Low Priority):** Society does not meet attributes in full and does not warrant immediate investment. Re-evaluation may be needed in the future."
     )
-    st.write("updated")
     st.markdown('</div>', unsafe_allow_html=True)
 
 elif page == "Research based First Draft":
