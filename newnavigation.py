@@ -66,6 +66,10 @@ st.markdown("""
             from { opacity: 0; }
             to { opacity: 1; }
         }
+        /* Fix to hide keyboard_double_arrow_right icon text */
+        [data-testid="stSidebar"] span[class*="keyboard_double_arrow_right"] {
+            display: none !important;
+        }
     </style>
 """, unsafe_allow_html=True)
 
@@ -884,3 +888,4 @@ elif page == "Pharma Insights Chatbot":
 # # Start the scheduler in a separate thread
 # if __name__ == "__main__":
 #     threading.Thread(target=start_scheduler, daemon=True).start()
+
