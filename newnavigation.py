@@ -26,29 +26,30 @@ st.set_page_config(page_title="Pharma Q&A Generator", page_icon="💊")
 
 # Inline CSS for styling
 st.markdown("""
-    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
-
     <style>
         @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap');
-
-        html, body, [class*="st-"], .main, .block-container {
-            font-family: 'Poppins', sans-serif;
-            color: #333;
-        }
-
+            
+            html, body, [class*="st-"], .main, .block-container {
+                font-family: 'Poppins', sans-serif;
+                color: #333;
+            }
+        
+        /* Main content area - white background */
         body {
             background-color: #ffffff;
             font-family: "Arial", sans-serif;
         }
-
+        
+        /* Sidebar (Navigation Menu) - blue background */
         [data-testid="stSidebar"] {
-            background-color: #000C66 !important;
+            background-color: #000C66 !important; /* Blue background */
         }
 
+        /* Sidebar text color (optional: white for contrast) */
         [data-testid="stSidebar"] * {
             color: white !important;
         }
-
+        
         .main-header {
             font-size: 2rem;
             color: #FF4500;
@@ -65,29 +66,13 @@ st.markdown("""
             from { opacity: 0; }
             to { opacity: 1; }
         }
-
-        /* Ensure material icons render correctly */
-        .material-icons {
-            font-family: 'Material Icons';
-            font-style: normal;
-            font-weight: normal;
-            font-size: 24px;
-            display: inline-block;
-            line-height: 1;
-            letter-spacing: normal;
-            text-transform: none;
-            white-space: nowrap;
-            direction: ltr;
-            -webkit-font-feature-settings: 'liga';
-            -webkit-font-smoothing: antialiased;
-        }
     </style>
 """, unsafe_allow_html=True)
 
 # Sidebar Navigation
 st.sidebar.image("https://naf.org/wp-content/uploads/2024/04/incedo-logo-01.png", width=100)  # Adjust width as needed
 st.sidebar.title("Main Menu")
-page = st.sidebar.radio("", ["Home Page", "Research based First Draft", "Querying Engine", "Pharma Insights Chatbot"])
+page = st.sidebar.radio("", ["Home Page", "Research based First Draft", "Incedo Insights Analyzer", "Pharma Insights Chatbot"])
 
 if page == "Home Page":
     st.markdown('<div class="main-header">💊 Introduction </div>', unsafe_allow_html=True)
@@ -143,7 +128,7 @@ elif page == "Research based First Draft":
         "OSNJ (Oncology Society of New Jersey)",
         "ESHOS (Empire State Hematology Oncology Society)"
     ]
-
+    
     # Define all available society options
     new_societies = [
         "",
@@ -171,7 +156,7 @@ elif page == "Research based First Draft":
     ]
     
     GITHUB_TOKEN = os.getenv("GITHUB_TOKEN")  # Add your GitHub token in the .env file
-    GITHUB_REPO = "kushagraaery/USMApocbotnew"  # Replace with your GitHub repo
+    GITHUB_REPO = "kushagraaery/USMApocbot"  # Replace with your GitHub repo
     FILE_PATH = "Pharma_Society_Report.xlsx"  # Path to the Excel file in the repo
     
     # GitHub API URL
@@ -457,13 +442,15 @@ elif page == "Research based First Draft":
             if "successfully" in status:
                 st.success("Successfully sent data to Google Sheets!")
                 # Show spinner for 10 seconds
-                with st.spinner("Wait for a few seconds for the data to update..."):
+                with st.spinner("Redirecting you to Google Site in few seconds..."):
                     time.sleep(10)
+
+                # Redirect to new page
+                webbrowser.open_new_tab("https://sites.google.com/gene.com/usma-poc/home")
             else:
                 st.error("Error while sending data to Google Sheets!")
-    st.page_link("https://sites.google.com/gene.com/usma-poc/home", label="Navigate to Reviewer Page", icon="📝")
     
-elif page == "Querying Engine":    
+elif page == "Incedo Insights Analyzer":    
         com.iframe("https://lottie.host/embed/cab54264-ba4f-4663-8415-9992125e6d0a/dQgwO9lDGf.lottie")
         
         # Chatbot 2.0 Section with Enhanced Styling and Animations
@@ -552,7 +539,7 @@ elif page == "Querying Engine":
         chat_input_2 = st.chat_input("Ask a question about the consolidated report...")
         
         GITHUB_TOKEN = os.getenv("GITHUB_TOKEN")  # Add your GitHub token in the .env file
-        GITHUB_REPO = "kushagraaery/USMApocbotnew"  # Replace with your GitHub repo
+        GITHUB_REPO = "kushagraaery/qnagenerator"  # Replace with your GitHub repo
         FILE_PATH = "Pharma_Society_Report.xlsx"  # Path to the Excel file in the repo
         
         # GitHub API URL
@@ -732,172 +719,170 @@ elif page == "Pharma Insights Chatbot":
         elif msg["role"] == "assistant":
             st.chat_message("assistant").write(msg["content"])
 
-# # Define all available society options
-# all_societies = [
-#     "FLASCO (Florida Society of Clinical Oncology)", 
-#     "GASCO (Georgia Society of Clinical Oncology)",
-#     "PSOH (Pennsylvania Society of Oncology and Hematology)",
-#     "WVOS (West Virginia Oncology Society)",
-#     "DSCO (Delaware Society of Clinical Oncology)",
-#     "OSNJ (Oncology Society of New Jersey)",
-#     "ESHOS (Empire State Hematology Oncology Society)"
-# ]
+# Define all available society options
+all_societies = [
+    "FLASCO (Florida Society of Clinical Oncology)", 
+    "GASCO (Georgia Society of Clinical Oncology)",
+    "PSOH (Pennsylvania Society of Oncology and Hematology)",
+    "WVOS (West Virginia Oncology Society)",
+    "DSCO (Delaware Society of Clinical Oncology)",
+    "OSNJ (Oncology Society of New Jersey)",
+    "ESHOS (Empire State Hematology Oncology Society)"
+]
 
-# # Define all available society options
-# new_societies = [
-#     "",
-#     "FLASCO (Florida Society of Clinical Oncology)", 
-#     "GASCO (Georgia Society of Clinical Oncology)",
-#     "PSOH (Pennsylvania Society of Oncology and Hematology)",
-#     "WVOS (West Virginia Oncology Society)",
-#     "DSCO (Delaware Society of Clinical Oncology)",
-#     "OSNJ (Oncology Society of New Jersey)",
-#     "ESHOS (Empire State Hematology Oncology Society)"
-# ]
+# Define all available society options
+new_societies = [
+    "",
+    "FLASCO (Florida Society of Clinical Oncology)", 
+    "GASCO (Georgia Society of Clinical Oncology)",
+    "PSOH (Pennsylvania Society of Oncology and Hematology)",
+    "WVOS (West Virginia Oncology Society)",
+    "DSCO (Delaware Society of Clinical Oncology)",
+    "OSNJ (Oncology Society of New Jersey)",
+    "ESHOS (Empire State Hematology Oncology Society)"
+]
 
-# # Define questions
-# questions = [
-#     "What is the membership count for society_name? Respond with one word (number) only. That should just be an integer nothing like approx or members just a number.",
-#     "Does society_name encompasses community sites? Respond one word ('yes' or 'no') only plus provide a justification for the answer also after a comma.",
-#     "Is society_name influential on state or local policy? Respond one word ('yes' or 'no') only plus provide a justification for the answer also after a comma.",
-#     "Does society_name provide engagement opportunity with leadership? Respond one word ('yes' or 'no') only plus provide a justification for the answer also after a comma.",
-#     "Does society_name provide support for clinical trial recruitment? Respond one word ('yes' or 'no') only plus provide a justification for the answer also after a comma.",
-#     "Does society_name provide engagement opportunity with payors? Respond one word ('yes' or 'no') only plus provide a justification for the answer also after a comma.",
-#     "Does society_name include area experts on its board? Respond one word ('yes' or 'no') only plus provide a justification for the answer also after a comma.",
-#     "Is society_name involved in therapeutic research collaborations? Respond one word ('yes' or 'no') only plus provide a justification for the answer also after a comma.",
-#     "Does society_name include top therapeutic area experts on its board? Respond with one word ('yes' or 'no') only plus provide a justification for the answer also after a comma.",
-#     "Name the Region where the society_name is from? Just name the Region in word for the answer."
-# ]
+# Define questions
+questions = [
+    "What is the membership count for society_name? Respond with one word (number) only. That should just be an integer nothing like approx or members just a number.",
+    "Does society_name encompasses community sites? Respond one word ('yes' or 'no') only plus provide a justification for the answer also after a comma.",
+    "Is society_name influential on state or local policy? Respond one word ('yes' or 'no') only plus provide a justification for the answer also after a comma.",
+    "Does society_name provide engagement opportunity with leadership? Respond one word ('yes' or 'no') only plus provide a justification for the answer also after a comma.",
+    "Does society_name provide support for clinical trial recruitment? Respond one word ('yes' or 'no') only plus provide a justification for the answer also after a comma.",
+    "Does society_name provide engagement opportunity with payors? Respond one word ('yes' or 'no') only plus provide a justification for the answer also after a comma.",
+    "Does society_name include area experts on its board? Respond one word ('yes' or 'no') only plus provide a justification for the answer also after a comma.",
+    "Is society_name involved in therapeutic research collaborations? Respond one word ('yes' or 'no') only plus provide a justification for the answer also after a comma.",
+    "Does society_name include top therapeutic area experts on its board? Respond with one word ('yes' or 'no') only plus provide a justification for the answer also after a comma.",
+    "Name the Region where the society_name is from? Just name the Region in word for the answer."
+]
 
-# GITHUB_TOKEN = os.getenv("GITHUB_TOKEN")  # Add your GitHub token in the .env file
-# GITHUB_REPO = "kushagraaery/USMApocbotnew"  # Replace with your GitHub repo
-# FILE_PATH = "Pharma_Society_Report.xlsx"  # Path to the Excel file in the repo
+GITHUB_TOKEN = os.getenv("GITHUB_TOKEN")  # Add your GitHub token in the .env file
+GITHUB_REPO = "kushagraaery/USMApocbot"  # Replace with your GitHub repo
+FILE_PATH = "Pharma_Society_Report.xlsx"  # Path to the Excel file in the repo
     
-# # GitHub API URL
-# BASE_URL = f"https://api.github.com/repos/{GITHUB_REPO}/contents/{FILE_PATH}"
+# GitHub API URL
+BASE_URL = f"https://api.github.com/repos/{GITHUB_REPO}/contents/{FILE_PATH}"
     
-# # Helper function to fetch Excel file from GitHub
-# def fetch_excel_from_github():
-#     headers = {"Authorization": f"Bearer {GITHUB_TOKEN}"}
-#     response = requests.get(BASE_URL, headers=headers)
-#     if response.status_code == 200:
-#         content = response.json()
-#         file_data = base64.b64decode(content["content"])
-#         df = pd.read_excel(BytesIO(file_data))
-#         sha = content["sha"]  # Required for updating the file
-#         return df, sha
-#     else:
-#         st.error("Failed to fetch the Excel file from GitHub.")
-#         return None, None
+# Helper function to fetch Excel file from GitHub
+def fetch_excel_from_github():
+    headers = {"Authorization": f"Bearer {GITHUB_TOKEN}"}
+    response = requests.get(BASE_URL, headers=headers)
+    if response.status_code == 200:
+        content = response.json()
+        file_data = base64.b64decode(content["content"])
+        df = pd.read_excel(BytesIO(file_data))
+        sha = content["sha"]  # Required for updating the file
+        return df, sha
+    else:
+        st.error("Failed to fetch the Excel file from GitHub.")
+        return None, None
 
-# # Helper function to update Excel file in GitHub
-# def update_excel_in_github(df, sha):
-#     headers = {"Authorization": f"Bearer {GITHUB_TOKEN}"}
-#     # Convert DataFrame to binary Excel content
-#     output = BytesIO()
-#     with pd.ExcelWriter(output, engine="xlsxwriter") as writer:
-#         df.to_excel(writer, index=False)
-#     file_content = output.getvalue()
-#     # Prepare API payload
-#     payload = {
-#         "message": "Updated Excel file via Streamlit",
-#         "content": base64.b64encode(file_content).decode("utf-8"),
-#         "sha": sha
-#     }
-#     response = requests.put(BASE_URL, headers=headers, data=json.dumps(payload))
-#     if response.status_code == 200:
-#         st.success("Data updated successfully!")
-#     else:
-#         st.error(f"Failed to update the data: {response.text}")
+# Helper function to update Excel file in GitHub
+def update_excel_in_github(df, sha):
+    headers = {"Authorization": f"Bearer {GITHUB_TOKEN}"}
+    # Convert DataFrame to binary Excel content
+    output = BytesIO()
+    with pd.ExcelWriter(output, engine="xlsxwriter") as writer:
+        df.to_excel(writer, index=False)
+    file_content = output.getvalue()
+    # Prepare API payload
+    payload = {
+        "message": "Updated Excel file via Streamlit",
+        "content": base64.b64encode(file_content).decode("utf-8"),
+        "sha": sha
+    }
+    response = requests.put(BASE_URL, headers=headers, data=json.dumps(payload))
+    if response.status_code == 200:
+        st.success("Data updated successfully!")
+    else:
+        st.error(f"Failed to update the data: {response.text}")
 
-# # Function to fetch data for all societies
-# def fetch_all_societies_data():
-#     report_data = pd.DataFrame(columns=[
-#         "Society Name",
-#         *questions
-#     ])
+# Function to fetch data for all societies
+def fetch_all_societies_data():
+    report_data = pd.DataFrame(columns=[
+        "Society Name",
+        *questions
+    ])
 
-#     for society in all_societies:
-#         society_data = {"Society Name": society}
-#         modified_questions = [q.replace("society_name", society) for q in questions]
+    for society in all_societies:
+        society_data = {"Society Name": society}
+        modified_questions = [q.replace("society_name", society) for q in questions]
 
-#         for i, question in enumerate(modified_questions):
-#             try:
-#                 response = openai.ChatCompletion.create(
-#                     model="gpt-3.5-turbo",
-#                     messages=[{"role": "user", "content": question}]
-#                 )
-#                 answer = response["choices"][0]["message"]["content"].strip()
-#                 society_data[questions[i]] = answer
-#             except Exception as e:
-#                 st.error(f"Error with '{question}': {e}")
-#                 society_data[questions[i]] = "Error"
-#         report_data = pd.concat([report_data, pd.DataFrame([society_data])], ignore_index=True)
+        for i, question in enumerate(modified_questions):
+            try:
+                response = openai.ChatCompletion.create(
+                    model="gpt-3.5-turbo",
+                    messages=[{"role": "user", "content": question}]
+                )
+                answer = response["choices"][0]["message"]["content"].strip()
+                society_data[questions[i]] = answer
+            except Exception as e:
+                st.error(f"Error with '{question}': {e}")
+                society_data[questions[i]] = "Error"
+        report_data = pd.concat([report_data, pd.DataFrame([society_data])], ignore_index=True)
     
 
-#     # Fetch the existing data and SHA from GitHub
-#     df, sha = fetch_excel_from_github()
-#     if df is not None and sha is not None:
-#         # Replace the entire data with the new report_data
-#         update_report_data(report_data, sha)
-#     else:
-#         st.error("Failed to fetch existing data from GitHub.")
+    # Fetch the existing data and SHA from GitHub
+    df, sha = fetch_excel_from_github()
+    if df is not None and sha is not None:
+        # Replace the entire data with the new report_data
+        update_report_data(report_data, sha)
+    else:
+        st.error("Failed to fetch existing data from GitHub.")
 
-# def update_report_data(report_data, sha):
-#     if report_data is not None and sha is not None:
-#         # Fetch the existing data from GitHub
-#         df, _ = fetch_excel_from_github()
-#         if df is not None:
-#             # Iterate through the new report data
-#             for _, row in report_data.iterrows():
-#                 society_name = row["Society Name"]
-#                 new_membership_count = row.get(
-#                     "What is the membership count for society_name? Respond with one word (number) only. That should just be an integer nothing like approx or members just a number.",
-#                     None
-#                 )
+def update_report_data(report_data, sha):
+    if report_data is not None and sha is not None:
+        # Fetch the existing data from GitHub
+        df, _ = fetch_excel_from_github()
+        if df is not None:
+            # Iterate through the new report data
+            for _, row in report_data.iterrows():
+                society_name = row["Society Name"]
+                new_membership_count = row.get(
+                    "What is the membership count for society_name? Respond with one word (number) only. That should just be an integer nothing like approx or members just a number.",
+                    None
+                )
 
-#                 # Ensure the new membership count is a valid integer
-#                 try:
-#                     new_membership_count = int(new_membership_count)
-#                 except (ValueError, TypeError):
-#                     st.warning(f"Invalid membership count for {society_name}, skipping update.")
-#                     continue  # Skip this entry if the membership count is invalid
+                # Ensure the new membership count is a valid integer
+                try:
+                    new_membership_count = int(new_membership_count)
+                except (ValueError, TypeError):
+                    st.warning(f"Invalid membership count for {society_name}, skipping update.")
+                    continue  # Skip this entry if the membership count is invalid
 
-#                 # Check if the society exists in the existing data
-#                 if society_name in df["Society Name"].values:
-#                     # Update the existing row directly
-#                     index = df[df["Society Name"] == society_name].index[0]
-#                     df.loc[index, 
-#                         "What is the membership count for society_name? Respond with one word (number) only. That should just be an integer nothing like approx or members just a number."
-#                     ] = new_membership_count
-#                 else:
-#                     # Append the new row if the society doesn't exist
-#                     new_row = row.to_dict()
-#                     df = pd.concat([df, pd.DataFrame([new_row])], ignore_index=True)
+                # Check if the society exists in the existing data
+                if society_name in df["Society Name"].values:
+                    # Update the existing row directly
+                    index = df[df["Society Name"] == society_name].index[0]
+                    df.loc[index, 
+                        "What is the membership count for society_name? Respond with one word (number) only. That should just be an integer nothing like approx or members just a number."
+                    ] = new_membership_count
+                else:
+                    # Append the new row if the society doesn't exist
+                    new_row = row.to_dict()
+                    df = pd.concat([df, pd.DataFrame([new_row])], ignore_index=True)
 
-#             # Upload the updated DataFrame back to GitHub
-#             update_excel_in_github(df, sha)
-#         else:
-#             st.error("Failed to fetch the existing data from GitHub.")
-#     else:
-#         st.error("No report data or SHA provided for update.")
+            # Upload the updated DataFrame back to GitHub
+            update_excel_in_github(df, sha)
+        else:
+            st.error("Failed to fetch the existing data from GitHub.")
+    else:
+        st.error("No report data or SHA provided for update.")
 
-# # This function will run the job without the lock
-# def scheduled_job():
-#     print("Weekly data fetch initiated...")
-#     fetch_all_societies_data()  # Call your data fetch function
-#     print("Weekly data fetch completed!")
+# This function will run the job without the lock
+def scheduled_job():
+    print("Weekly data fetch initiated...")
+    fetch_all_societies_data()  # Call your data fetch function
+    print("Weekly data fetch completed!")
 
-# # Function to start the scheduler
-# def start_scheduler():
-#     # Create the scheduler and add the job
-#     scheduler = BackgroundScheduler()
-#     scheduler.add_job(scheduled_job, 'cron', day_of_week='mon', hour=10, minute=00, timezone="Asia/Kolkata")
-#     # Start the scheduler
-#     scheduler.start()
+# Function to start the scheduler
+def start_scheduler():
+    # Create the scheduler and add the job
+    scheduler = BackgroundScheduler()
+    scheduler.add_job(scheduled_job, 'cron', day_of_week='mon', hour=10, minute=00, timezone="Asia/Kolkata")
+    # Start the scheduler
+    scheduler.start()
 
-# # Start the scheduler in a separate thread
-# if __name__ == "__main__":
-#     threading.Thread(target=start_scheduler, daemon=True).start()
-
-
+# Start the scheduler in a separate thread
+if __name__ == "__main__":
+    threading.Thread(target=start_scheduler, daemon=True).start()
