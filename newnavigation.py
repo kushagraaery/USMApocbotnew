@@ -26,30 +26,29 @@ st.set_page_config(page_title="Pharma Q&A Generator", page_icon="💊")
 
 # Inline CSS for styling
 st.markdown("""
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+
     <style>
         @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap');
-            
-            html, body, [class*="st-"], .main, .block-container {
-                font-family: 'Poppins', sans-serif;
-                color: #333;
-            }
-        
-        /* Main content area - white background */
+
+        html, body, [class*="st-"], .main, .block-container {
+            font-family: 'Poppins', sans-serif;
+            color: #333;
+        }
+
         body {
             background-color: #ffffff;
             font-family: "Arial", sans-serif;
         }
-        
-        /* Sidebar (Navigation Menu) - blue background */
+
         [data-testid="stSidebar"] {
-            background-color: #000C66 !important; /* Blue background */
+            background-color: #000C66 !important;
         }
 
-        /* Sidebar text color (optional: white for contrast) */
         [data-testid="stSidebar"] * {
             color: white !important;
         }
-        
+
         .main-header {
             font-size: 2rem;
             color: #FF4500;
@@ -66,9 +65,21 @@ st.markdown("""
             from { opacity: 0; }
             to { opacity: 1; }
         }
-        /* Fix to hide keyboard_double_arrow_right icon text */
-        [data-testid="stSidebar"] span[class*="keyboard_double_arrow_right"] {
-            display: none !important;
+
+        /* Ensure material icons render correctly */
+        .material-icons {
+            font-family: 'Material Icons';
+            font-style: normal;
+            font-weight: normal;
+            font-size: 24px;
+            display: inline-block;
+            line-height: 1;
+            letter-spacing: normal;
+            text-transform: none;
+            white-space: nowrap;
+            direction: ltr;
+            -webkit-font-feature-settings: 'liga';
+            -webkit-font-smoothing: antialiased;
         }
     </style>
 """, unsafe_allow_html=True)
@@ -888,4 +899,5 @@ elif page == "Pharma Insights Chatbot":
 # # Start the scheduler in a separate thread
 # if __name__ == "__main__":
 #     threading.Thread(target=start_scheduler, daemon=True).start()
+
 
