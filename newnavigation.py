@@ -70,7 +70,11 @@ st.markdown("""
 """, unsafe_allow_html=True)
 
 # Sidebar Navigation
-st.sidebar.image("https://naf.org/wp-content/uploads/2024/04/incedo-logo-01.png", width=100)  # Adjust width as needed
+st.sidebar.markdown("""
+    <div style="padding: 0; margin: 0;">
+        <h2 style="color: #FF6600; margin: 0; margin-bottom: 1rem; font-family: 'Poppins', sans-serif; font-weight: 600; font-size: 1.5rem;">Smart Ops</h2>
+    </div>
+""", unsafe_allow_html=True)
 st.sidebar.title("Main Menu")
 page = st.sidebar.radio("", ["Home Page", "Research based First Draft", "Incedo Insights Analyzer", "Pharma Insights Chatbot"])
 
@@ -278,7 +282,7 @@ elif page == "Research based First Draft":
                         model="gpt-3.5-turbo",
                         messages=[{"role": "user", "content": question}]
                     )
-                    answer = response["choices"][0]["message"]["content"].strip()
+                    answer = "As per Smart Ops research, " + response["choices"][0]["message"]["content"].strip()
                     society_data[questions[i]] = answer
                 except Exception as e:
                     st.error(f"Error with '{question}': {e}")
@@ -388,7 +392,7 @@ elif page == "Research based First Draft":
         return df.to_html(index=False, border=1, classes="dataframe", justify="center")
     
     # Collect email details from user input
-    receiver_email = "chouran1@gene.com"
+    receiver_email = "rajpua1@external.gene.com"
     email_subject = "Consolidated Pharma Society Report"
     
     # Set Gmail SMTP server settings
@@ -592,7 +596,7 @@ elif page == "Incedo Insights Analyzer":
                     model="gpt-3.5-turbo",
                     messages=[{"role": "system", "content": prompt}]
                 )
-                return response.choices[0]["message"]["content"].strip()
+                return "As per Smart Ops analysis, " + response.choices[0]["message"]["content"].strip()
             except Exception as e:
                 return f"Error generating response: {e}"
         
@@ -706,7 +710,7 @@ elif page == "Pharma Insights Chatbot":
                     model="gpt-3.5-turbo",
                     messages=st.session_state["messages"]
                 )
-                bot_reply = response.choices[0]["message"]["content"]
+                bot_reply = "As per Smart Ops insights, " + response.choices[0]["message"]["content"]
                 st.session_state["messages"].append({"role": "assistant", "content": bot_reply})
             except Exception as e:
                 bot_reply = f"Error retrieving response: {e}"
@@ -814,7 +818,7 @@ def fetch_all_societies_data():
                     model="gpt-3.5-turbo",
                     messages=[{"role": "user", "content": question}]
                 )
-                answer = response["choices"][0]["message"]["content"].strip()
+                answer = "As per Smart Ops research, " + response["choices"][0]["message"]["content"].strip()
                 society_data[questions[i]] = answer
             except Exception as e:
                 st.error(f"Error with '{question}': {e}")
