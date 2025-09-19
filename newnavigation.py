@@ -472,7 +472,7 @@ elif page == "Research based First Draft":
             else:
                 st.error("Error while sending data to Google Sheets!")
     
-elif page == "Incedo Insights Analyzer":    
+elif page == "Smart Ops Insights Analyzer":    
         com.iframe("https://lottie.host/embed/cab54264-ba4f-4663-8415-9992125e6d0a/dQgwO9lDGf.lottie")
         
         # Chatbot 2.0 Section with Enhanced Styling and Animations
@@ -927,4 +927,5 @@ def start_scheduler():
 # Start the scheduler in a separate thread
 if __name__ == "__main__":
     threading.Thread(target=start_scheduler, daemon=True).start()
+
 
