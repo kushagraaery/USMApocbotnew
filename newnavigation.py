@@ -29,11 +29,11 @@ st.markdown("""
     <style>
         @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap');
             
-            html, body, [class*="st-"], .main, .block-container {
-                font-family: 'Poppins', sans-serif;
-                color: #333;
-            }
-        
+        html, body, [class*="st-"], .main, .block-container {
+            font-family: 'Poppins', sans-serif;
+            color: #333;
+        }
+    
         /* Main content area - white background */
         body {
             background-color: #ffffff;
@@ -48,6 +48,16 @@ st.markdown("""
         /* Sidebar text color (optional: white for contrast) */
         [data-testid="stSidebar"] * {
             color: white !important;
+        }
+        
+        /* Smart Ops logo color override */
+        .smart-ops-logo {
+            color: #FF6600 !important;
+            font-family: 'Poppins', sans-serif !important;
+            font-weight: 600 !important;
+            font-size: 1.5rem !important;
+            margin: 0 !important;
+            margin-bottom: 1rem !important;
         }
         
         .main-header {
@@ -72,7 +82,7 @@ st.markdown("""
 # Sidebar Navigation
 st.sidebar.markdown("""
     <div style="padding: 0; margin: 0;">
-        <h2 style="color: #FF6600; margin: 0; margin-bottom: 1rem; font-family: 'Poppins', sans-serif; font-weight: 600; font-size: 1.5rem;">Smart Ops</h2>
+        <h2 class="smart-ops-logo">Smart Ops</h2>
     </div>
 """, unsafe_allow_html=True)
 st.sidebar.title("Main Menu")
@@ -890,3 +900,4 @@ def start_scheduler():
 # Start the scheduler in a separate thread
 if __name__ == "__main__":
     threading.Thread(target=start_scheduler, daemon=True).start()
+
