@@ -288,11 +288,19 @@ elif page == "Research based First Draft":
     
             for i, question in enumerate(modified_questions):
                 try:
+                    enhanced_prompt = f"""
+                    You are a Smart Ops AI assistant. When answering questions related to pharmaceutical societies, research data, business insights, or professional analysis, start your response with "As per Smart Ops research, " or "As per Smart Ops analysis, ". 
+                    
+                    For casual greetings, simple acknowledgments, or basic conversational responses, respond naturally without the prefix.
+                    
+                    Question: {question}
+                    """
+                    
                     response = openai.ChatCompletion.create(
                         model="gpt-3.5-turbo",
-                        messages=[{"role": "user", "content": question}]
+                        messages=[{"role": "user", "content": enhanced_prompt}]
                     )
-                    answer = "As per Smart Ops research, " + response["choices"][0]["message"]["content"].strip()
+                    answer = response["choices"][0]["message"]["content"].strip()
                     society_data[questions[i]] = answer
                 except Exception as e:
                     st.error(f"Error with '{question}': {e}")
@@ -590,9 +598,12 @@ elif page == "Incedo Insights Analyzer":
             try:
                 # Construct a dynamic prompt
                 prompt = f"""
-                 You are an AI assistant fine-tuned to answer questions based on a pharmaceutical society consolidated report. 
-                 Use the following report data to answer user queries accurately if the information exists in the report.
-                 If the query cannot be answered using the report, respond using your general knowledge i.e. using chat-gpt model:
+                You are a Smart Ops AI assistant fine-tuned to answer questions based on pharmaceutical society consolidated reports. 
+                
+                IMPORTANT INSTRUCTION: When providing substantive answers about data, research, insights, or analysis, start your response with "As per Smart Ops analysis, " or "As per Smart Ops insights, ". However, for casual greetings (hi, hello, thanks), simple acknowledgments, or basic conversational responses, respond naturally without the prefix.
+                
+                Use the following report data to answer user queries accurately if the information exists in the report.
+                If the query cannot be answered using the report, respond using your general knowledge:
                 
                 {report_context}
                 
@@ -602,11 +613,10 @@ elif page == "Incedo Insights Analyzer":
                 """
                 # Call OpenAI API
                 response = openai.ChatCompletion.create(
-                    #   model="gpt-4",
                     model="gpt-3.5-turbo",
                     messages=[{"role": "system", "content": prompt}]
                 )
-                return "As per Smart Ops analysis, " + response.choices[0]["message"]["content"].strip()
+                return response.choices[0]["message"]["content"].strip()
             except Exception as e:
                 return f"Error generating response: {e}"
         
@@ -716,11 +726,22 @@ elif page == "Pharma Insights Chatbot":
         # Query OpenAI API with the current messages
         with st.spinner("Generating response..."):
             try:
+                # Enhance the conversation with Smart Ops context
+                enhanced_messages = st.session_state["messages"].copy()
+                enhanced_messages.insert(0, {
+                    "role": "system", 
+                    "content": """You are a Smart Ops AI assistant specializing in pharmaceutical and oncology society insights. 
+                
+                IMPORTANT: When providing substantive information, research findings, data analysis, or professional insights, start your response with "As per Smart Ops insights, " or "As per Smart Ops research, ". 
+                
+                However, for casual conversations (greetings like hi/hello, thanks, simple acknowledgments), respond naturally without the prefix. Use your judgment to determine when the Smart Ops prefix is appropriate based on the substance and professional nature of the query."""
+                })
+                
                 response = openai.ChatCompletion.create(
                     model="gpt-3.5-turbo",
-                    messages=st.session_state["messages"]
+                    messages=enhanced_messages
                 )
-                bot_reply = "As per Smart Ops insights, " + response.choices[0]["message"]["content"]
+                bot_reply = response.choices[0]["message"]["content"]
                 st.session_state["messages"].append({"role": "assistant", "content": bot_reply})
             except Exception as e:
                 bot_reply = f"Error retrieving response: {e}"
@@ -824,11 +845,17 @@ def fetch_all_societies_data():
 
         for i, question in enumerate(modified_questions):
             try:
+                enhanced_question = f"""
+                You are a Smart Ops research assistant. Since this is a data collection query for pharmaceutical society research, start your response with "As per Smart Ops research, ".
+                
+                {question}
+                """
+                
                 response = openai.ChatCompletion.create(
                     model="gpt-3.5-turbo",
-                    messages=[{"role": "user", "content": question}]
+                    messages=[{"role": "user", "content": enhanced_question}]
                 )
-                answer = "As per Smart Ops research, " + response["choices"][0]["message"]["content"].strip()
+                answer = response["choices"][0]["message"]["content"].strip()
                 society_data[questions[i]] = answer
             except Exception as e:
                 st.error(f"Error with '{question}': {e}")
@@ -900,4 +927,3 @@ def start_scheduler():
 # Start the scheduler in a separate thread
 if __name__ == "__main__":
     threading.Thread(target=start_scheduler, daemon=True).start()
-
