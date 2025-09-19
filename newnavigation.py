@@ -86,7 +86,7 @@ st.sidebar.markdown("""
     </div>
 """, unsafe_allow_html=True)
 st.sidebar.title("Main Menu")
-page = st.sidebar.radio("", ["Home Page", "Research based First Draft", "Incedo Insights Analyzer", "Pharma Insights Chatbot"])
+page = st.sidebar.radio("", ["Home Page", "Research based First Draft", "Smart Ops Insights Analyzer", "Pharma Insights Chatbot"])
 
 if page == "Home Page":
     st.markdown('<div class="main-header">💊 Introduction </div>', unsafe_allow_html=True)
@@ -927,3 +927,4 @@ def start_scheduler():
 # Start the scheduler in a separate thread
 if __name__ == "__main__":
     threading.Thread(target=start_scheduler, daemon=True).start()
+
